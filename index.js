@@ -24,7 +24,25 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
+// /api/date
+const someDay = new Date(1451001600000); 
+const formattedDate = someDay.toISOString().substr(0, 10);
+const someDayFormat = someDay.getTime();
+console.log(someDay.getTime(), someDay, );
 
+app.get(`/api/${formattedDate}`, (req, res) => {
+  res.json({
+    unix: someDayFormat,
+    utc: someDay.toUTCString()
+  });
+} );
+// /api/unix
+app.get(`/api/${someDayFormat}`, (req, res) => {
+  res.json({
+    unix: someDayFormat,
+    utc: someDay.toUTCString()
+  });
+});
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
